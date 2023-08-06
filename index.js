@@ -11,7 +11,7 @@ main().catch((err) => console.log(err));
 
 async function main() {
   await mongoose.connect(
-    "mongodb+srv://pawanNcr:M7fBSuR95lxS2Bol@cluster0.7gklnbm.mongodb.net/ecommerce"
+    `mongodb+srv://pawanNcr:${process.env.Password}@cluster0.7gklnbm.mongodb.net/ecommerce`
   );
 
   console.log("DataBase connected");
