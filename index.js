@@ -1,5 +1,6 @@
 const express = require("express");
 require("dotenv").config();
+var jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const server = express();
@@ -19,7 +20,20 @@ async function main() {
 
 //middleware
 // body parser
-
+server.use((req, res, next) => {
+  try {
+    const token = req.get("Authorization").split("Bearer ")[1];
+    console.log("------->", token);
+    var decode = jwt.verify(token, "shhhhh");
+    if (decode.email) {
+      next();
+    } else {
+      res.sendStatus(401);
+    }
+  } catch (error) {
+    res.sendStatus(401);
+  }
+});
 server.use(cors());
 server.use(express.json());
 

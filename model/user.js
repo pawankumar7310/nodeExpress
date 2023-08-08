@@ -6,14 +6,17 @@ const userSchema = new Schema({
   lname: { type: String },
   email: {
     type: String,
+    unique: true,
     validate: {
       validator: function (v) {
         return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v);
       },
       message: (props) => `${props.value} is not a valid email !`,
     },
+    required: true,
   },
   gender: { type: String },
-  password: { type: String, min: [8, "min length"], max: [16, "max length"] },
+  password: { type: String, minLength: 6 },
+  token: String,
 });
 exports.user = mongoose.model("user", userSchema);

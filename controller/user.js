@@ -1,10 +1,13 @@
 const model = require("../model/user");
 const User = model.user;
+var jwt = require("jsonwebtoken");
 
 //create products
 exports.createUser = async (req, resp) => {
   try {
     const user = new User(req.body);
+    var token = jwt.sign({ email: req.body.email }, "shhhhh");
+    user.token = token;
     const doc = await user.save();
     console.log({ doc });
     resp.status(201).json(doc);
