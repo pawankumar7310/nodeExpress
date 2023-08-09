@@ -1,12 +1,12 @@
 const express = require("express");
-require("dotenv").config();
-var jwt = require("jsonwebtoken");
-const mongoose = require("mongoose");
-const cors = require("cors");
 const server = express();
+var jwt = require("jsonwebtoken");
+const cors = require("cors");
 const authRoutes = require("./routes/auth");
 const productRoutes = require("./routes/product");
 const userRoutes = require("./routes/user");
+const mongoose = require("mongoose");
+require("dotenv").config();
 
 //db connection
 main().catch((err) => console.log(err));
