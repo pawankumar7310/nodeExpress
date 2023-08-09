@@ -4,6 +4,7 @@ var jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const server = express();
+const authRoutes = require("./routes/auth");
 const productRoutes = require("./routes/product");
 const userRoutes = require("./routes/user");
 
@@ -20,7 +21,7 @@ async function main() {
 
 //middleware
 // body parser
-server.use((req, res, next) => {
+const auth = (req, res, next) => {
   try {
     const token = req.get("Authorization").split("Bearer ")[1];
     console.log("------->", token);
@@ -33,13 +34,15 @@ server.use((req, res, next) => {
   } catch (error) {
     res.sendStatus(401);
   }
-});
+};
 server.use(cors());
 server.use(express.json());
 
 //router middleware
-server.use("/products", productRoutes.router);
-server.use("/users", userRoutes.router);
+
+server.use("/auth", authRoutes.router);
+server.use("/products", auth, productRoutes.router);
+server.use("/users", auth, userRoutes.router);
 
 server.listen(process.env.PORT, () => {
   console.log("server is running");
