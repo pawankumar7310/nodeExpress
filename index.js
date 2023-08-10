@@ -41,9 +41,9 @@ server.use(express.json());
 server.use("/auth", authRoutes.router);
 server.use("/products", productRoutes.router);
 server.use("/users", auth, userRoutes.router);
-// server.use("/", (req, resp) => {
-//   resp.send("welcome to my project");
-// });
+server.use("/", (req, resp) => {
+  resp.send("hii I am pawan kumar");
+});
 
 server.listen(process.env.PORT, () => {
   console.log("server is running");
