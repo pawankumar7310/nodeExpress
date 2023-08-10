@@ -25,7 +25,7 @@ const auth = (req, res, next) => {
   try {
     const token = req.get("Authorization").split("Bearer ")[1];
     console.log("------->", token);
-    var decode = jwt.verify(token, "shhhhh");
+    var decode = jwt.verify(token, process.env.JWTSECRET);
     if (decode.email) {
       next();
     } else {
@@ -41,7 +41,7 @@ server.use(express.json());
 //router middleware
 
 server.use("/auth", authRoutes.router);
-server.use("/products", auth, productRoutes.router);
+server.use("/products", productRoutes.router);
 server.use("/users", auth, userRoutes.router);
 
 server.listen(process.env.PORT, () => {
