@@ -12,9 +12,7 @@ require("dotenv").config();
 main().catch((err) => console.log(err));
 
 async function main() {
-  await mongoose.connect(
-    `mongodb+srv://pawanNcr:${process.env.Password}@cluster0.7gklnbm.mongodb.net/ecommerce`
-  );
+  await mongoose.connect(process.env.DATABASE);
 
   console.log("DataBase connected");
 }
