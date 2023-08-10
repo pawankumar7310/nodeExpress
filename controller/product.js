@@ -22,8 +22,12 @@ exports.createProduct = async (req, resp) => {
 // --------------------------------------------------------
 //read
 exports.getAllProducts = async (req, resp) => {
-  const products = await Products.find();
-  resp.status(200).json(products);
+  try {
+    const products = await Products.find();
+    resp.status(200).json(products);
+  } catch (error) {
+    resp.status(404).json("no data fetch");
+  }
 };
 
 //read one
